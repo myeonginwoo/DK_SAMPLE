@@ -19,3 +19,4 @@ settings.gradle
 .idea/gradle.xml
 .idea/runConfigurations.xml
 build/
+/.idea/
