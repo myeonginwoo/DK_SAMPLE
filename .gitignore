@@ -16,3 +16,6 @@ gradlew
 gradlew.bat
 local.properties
 settings.gradle
+.idea/gradle.xml
+.idea/runConfigurations.xml
+build/
