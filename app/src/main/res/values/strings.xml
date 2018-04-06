@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DkSample</string>
+    <string name="a">Item A</string>
+    <string name="b">Item B</string>
+    <string name="c">Item C</string>
+    <string name="d">Item D</string>
+
 </resources>
