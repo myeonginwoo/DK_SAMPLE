@@ -12,20 +12,20 @@ class MainViewModel(val view: MainView, val dataStore: DataStore) {
 
     private val compositeDisposable: CompositeDisposable by lazy { CompositeDisposable() }
 
-    private var currentItem: Item by Delegates.observable(Item("kotlin", "#FF0000"),
-        { _: KProperty<*>, oldItem: Item, newItem: Item ->
-            view.onUpdatedItem(oldItem, newItem)
-        })
+    private var currentItem: Item by Delegates.observable(Item("kotlin", "#FF0000"))
+    { _: KProperty<*>, oldItem: Item, newItem: Item ->
+        view.onUpdatedItem(oldItem, newItem)
+    }
 
-    private var currentState: NetworkState by Delegates.observable(NetworkState.Init(),
-        { _: KProperty<*>, _: NetworkState, newState: NetworkState ->
-            when (newState) {
-                is NetworkState.Init -> view.hideProgress()
-                is NetworkState.Loading -> view.showProgress()
-                is NetworkState.Success<*> -> currentItem = newState.item as Item
-                is NetworkState.Error -> view.onError(newState.throwable)
-            }
-        })
+    private var currentState: NetworkState<Item> by Delegates.observable(NetworkState.Init())
+    { _: KProperty<*>, _: NetworkState<Item>, newState: NetworkState<Item> ->
+        when (newState) {
+            is NetworkState.Init -> view.hideProgress()
+            is NetworkState.Loading -> view.showProgress()
+            is NetworkState.Success<Item> -> currentItem = newState.item
+            is NetworkState.Error -> view.onError(newState.throwable)
+        }
+    }
 
     fun requestItemInfo(itemType: ItemType) {
         dataStore.getItemInfo(itemType)
