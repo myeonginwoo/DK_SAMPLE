@@ -1,8 +1,8 @@
 package com.lazysoul.dksample.model
 
-sealed class NetworkState {
-    class Init : NetworkState()
-    class Loading : NetworkState()
-    class Success<out T>(val item: T) : NetworkState()
-    class Error(val throwable: Throwable?) : NetworkState()
+sealed class NetworkState<out T> {
+    class Init : NetworkState<Nothing>()
+    class Loading : NetworkState<Nothing>()
+    class Success<out T>(val item: T) : NetworkState<T>()
+    class Error(val throwable: Throwable?) : NetworkState<Nothing>()
 }
